@@ -29,18 +29,18 @@ report 50511 AGT_Report_G
                 column(UnitPrice; "Unit Price") { }
                 column(ShippedQty; ShippedQty) { }
                 column(InvoicedQty; InvoicedQty) { }
-                column(ShippedAmount; ShippedAmount) { }  // New column
-                column(InvoicedAmount; InvoicedAmount) { }  // New column
+                column(ShippedAmount; ShippedAmount) { }
+                column(InvoicedAmount; InvoicedAmount) { }
 
                 trigger OnAfterGetRecord()
                 begin
-                    // Reset calculated values
+
                     ShippedQty := 0;
                     InvoicedQty := 0;
                     ShippedAmount := 0;
                     InvoicedAmount := 0;
 
-                    // Fetch Shipped Quantity from Sales Shipment Line
+
                     SalesShptLine.Reset();
                     SalesShptLine.SetRange("Order No.", "Sales Line"."Document No.");
                     SalesShptLine.SetRange("No.", "Sales Line"."No.");
@@ -49,7 +49,7 @@ report 50511 AGT_Report_G
                             ShippedQty += SalesShptLine.Quantity;
                         until SalesShptLine.Next() = 0;
 
-                    // Fetch Invoiced Quantity from Sales Invoice Line
+
                     SalesInvLine.Reset();
                     SalesInvLine.SetRange("Order No.", "Sales Line"."Document No.");
                     SalesInvLine.SetRange("No.", "Sales Line"."No.");
@@ -59,7 +59,7 @@ report 50511 AGT_Report_G
                             InvoicedAmount := InvoicedQty * "Unit Price";
                         until SalesInvLine.Next() = 0;
 
-                    // Calculate Shipped and Invoiced Amounts
+
                     ShippedAmount := ShippedQty * "Unit Price";
 
                 end;
