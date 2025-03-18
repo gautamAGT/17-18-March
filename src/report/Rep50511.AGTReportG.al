@@ -1,4 +1,4 @@
-report 50511 AGT_Report_G
+report 50511 "AGT_Report_G"
 {
     RDLCLayout = './salesHeadre.rdl';
     DefaultLayout = RDLC;
